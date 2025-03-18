@@ -19,7 +19,7 @@ function deleteCard(evt) {
 function showCards(cards) {
   const cardList = document.querySelector('.places__list');
 
-  cards.map(card => {
+  cards.forEach(card => {
     cardList.append(addCard(card, deleteCard));
   });
 }
