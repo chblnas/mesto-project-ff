@@ -2,10 +2,13 @@ function addCard(card,  deleteCard) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
-  cardElement.querySelector('.card__image').setAttribute('src', card.link);
-  cardElement.querySelector('.card__image').setAttribute('alt', card.name);
-  cardElement.querySelector('.card__title').textContent = card.name;
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardTitle = cardElement.querySelector('.card__title');
   const deleteButton = cardElement.querySelector('.card__delete-button');
+
+  cardImage.setAttribute('src', card.link);
+  cardImage.setAttribute('alt', card.name);
+  cardTitle.textContent = card.name;
 
   deleteButton.addEventListener('click', deleteCard);
 
