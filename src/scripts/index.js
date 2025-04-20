@@ -35,8 +35,6 @@ function showCards(cards) {
   cards.forEach(card => cardList.append(renderCard(card)));
 }
 
-showCards(initialCards);
-
 function addCard() {
   const name = cardNameInput.value;
   const link = cardUrlInput.value;
@@ -80,3 +78,5 @@ function handleAddCardFormSubmit(evt) {
 
 editProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
+
+showCards(initialCards);
