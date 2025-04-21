@@ -13,7 +13,7 @@ function createCard(card, handleDeleteCard, handleLikeCard, handleOpenImageModal
 
   deleteButton.addEventListener('click', () => handleDeleteCard(cardElement));
   likeButton.addEventListener('click', () => handleLikeCard(likeButton));
-  cardImage.addEventListener('click', () => handleOpenImageModal(card));
+  cardImage.addEventListener('click', () => handleOpenImageModal(card.name, card.link));
 
   return cardElement;
 }

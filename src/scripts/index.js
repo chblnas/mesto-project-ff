@@ -49,10 +49,10 @@ function addCard() {
   cardList.prepend(renderCard({name, link}));
 }
 
-function openImageModal(card) {
-  popupImage.setAttribute('src', card.link);
-  popupImage.setAttribute('alt', card.name);
-  popupCaption.textContent = card.name;
+function openImageModal(name, link) {
+  popupImage.setAttribute('src', link);
+  popupImage.setAttribute('alt', name);
+  popupCaption.textContent = name;
 
   openModal(imageModal);
 }
