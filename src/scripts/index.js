@@ -25,7 +25,14 @@ const cardList = document.querySelector('.places__list');
 
 const popups = document.querySelectorAll('.popup');
 
-popups.forEach(popup => popup.classList.add('popup_is-animated'));
+popups.forEach(popup => {
+  popup.classList.add('popup_is-animated');
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__close') || (evt.currentTarget === evt.target)) {
+      closeModal(popup);
+    }
+  });
+});
 
 function renderCard(card) {
   return createCard(card, deleteCard, likeCard, openImageModal);
