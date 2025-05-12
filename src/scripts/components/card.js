@@ -6,24 +6,26 @@ function createCard(card, handleDeleteCard, handleLikeCard, handleOpenImageModal
   const cardTitle = cardElement.querySelector('.card__title');
   const deleteButton = cardElement.querySelector('.card__delete-button');
   const likeButton = cardElement.querySelector('.card__like-button');
+  const likeCount = cardElement.querySelector('.card__like-count');
 
-  cardImage.setAttribute('src', card.link);
-  cardImage.setAttribute('alt', card.name);
+  cardImage.src = card.link;
+  cardImage.alt = card.name;
   cardTitle.textContent = card.name;
+  likeCount.textContent = card.likes;
 
-  deleteButton.addEventListener('click', () => handleDeleteCard(cardElement));
-  likeButton.addEventListener('click', () => handleLikeCard(likeButton));
+  if (card.isLiked) {
+    likeButton.classList.toggle('card__like-button_is-active');
+  }
+
+  if (card.owner._id !== card.userId) {
+    deleteButton.remove();
+  }
+
+  deleteButton.addEventListener('click', () => handleDeleteCard(card.cardId, cardElement));
+  likeButton.addEventListener('click', () => handleLikeCard(card.cardId, likeButton, likeCount));
   cardImage.addEventListener('click', () => handleOpenImageModal(card.name, card.link));
 
   return cardElement;
 }
 
-function deleteCard(card) {
-  card.remove();
-}
-
-function likeCard(likeButton) {
-  likeButton.classList.toggle('card__like-button_is-active');
-}
-
-export {createCard, deleteCard, likeCard};
+export {createCard};
