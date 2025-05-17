@@ -121,6 +121,7 @@ function openImageModal(name, link) {
 function handleProfileAvatarClick() {
   openModal(updateAvatarModal);
   clearValidation(updateAvatarForm, validationConfig);
+  updateAvatarForm.reset();
 }
 
 function handleEditProfileButtonClick() {
@@ -134,6 +135,7 @@ function handleEditProfileButtonClick() {
 function handleAddCardButtonClick() {
   openModal(addCardModal);
   clearValidation(addCardForm, validationConfig);
+  addCardForm.reset();
 }
 
 function handleEditProfileFormSubmit(evt) {
