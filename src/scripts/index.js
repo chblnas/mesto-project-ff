@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import { createCard } from './components/card.js';
+import { createCard, deleteCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validation.js';
 import { userAPI, cardAPI } from './components/api.js';
@@ -34,8 +34,8 @@ const popupCaption = imageModal.querySelector('.popup__caption');
 
 const deleteCardModal = document.querySelector('.popup_type_delete-card');
 const deleteCardForm = deleteCardModal.querySelector('.popup__form');
-const deleteCardFormSubmitButton = deleteCardForm.querySelector('.popup__button');
 let idCardForDelete = null;
+let cardElementForDelete = null;
 
 const cardList = document.querySelector('.places__list');
 
@@ -89,24 +89,25 @@ function renderLoading(buttonElement, isLoading) {
 }
 
 function renderCard(card) {
-  return createCard(card, deleteCard, likeCard, openImageModal);
+  return createCard(card, openDeleteCardModal, likeCard, openImageModal, cardAPI.toggleLike);
 }
 
-function deleteCard(cardId, cardElement) {
-  cardAPI.deleteCard(cardId)
-    .then(() => cardElement.remove())
-    .catch(console.error);
+function openDeleteCardModal(cardId, cardElement) {
+  openModal(deleteCardModal);
+
+  idCardForDelete = cardId;
+  cardElementForDelete = cardElement;
 }
 
-function likeCard(cardId, likeButton, likeCount) {
-  const isLiked = likeButton.classList.contains('card__like-button_is-active');
+function handleDeleteCard(evt) {
+  evt.preventDefault();
 
-  cardAPI.toggleLike(cardId, isLiked)
-    .then(card => {
-      likeButton.classList.toggle('card__like-button_is-active');
-      likeCount.textContent = card.likes.length;
+  cardAPI.deleteCard(idCardForDelete)
+    .then(() => {
+      deleteCard(cardElementForDelete);
+      closeModal(deleteCardModal);
     })
-    .catch(err => console.error(`Ошибка лайка ${err}`));
+    .catch(err => console.error(err));
 }
 
 function openImageModal(name, link) {
@@ -195,5 +196,6 @@ addCardButton.addEventListener('click', () => openModal(addCardModal));
 editProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 updateAvatarForm.addEventListener('submit', handleUpdateAvatarFormSubmit);
+deleteCardForm.addEventListener('submit', handleDeleteCard);
 
 enableValidation(validationConfig);

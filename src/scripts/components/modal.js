@@ -15,4 +15,4 @@ function closeModalEsc(evt) {
   }
 }
 
-export {openModal, closeModal};
+export { openModal, closeModal };

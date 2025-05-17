@@ -35,32 +35,24 @@ const userAPI = {
     }),
 
   updateAvatar: (avatar) => 
-    isImage(avatar).then(isValid => {
-      if (!isValid) return Promise.reject('Некорректный URL.');
-
-      return apiRequest(endpointPaths.avatar, {
+      apiRequest(endpointPaths.avatar, {
         method: 'PATCH',
         body: JSON.stringify({ avatar })
-      });
-    })
+      })
 };
 
 const cardAPI = {
   getInitialCards: () => apiRequest(endpointPaths.cards),
 
   createCard: (name, link) => 
-    isImage(link).then(isValid => {
-      if (!isValid) return Promise.reject('Некорректный URL.');
-
-      return apiRequest(endpointPaths.cards, {
+    apiRequest(endpointPaths.cards, {
         method: 'POST',
         body: JSON.stringify({ name, link })
-      });
-    }),
+      }),
 
   deleteCard: (cardId) => 
     apiRequest(endpointPaths.card(cardId), {
-      method: DELETE,
+      method: 'DELETE'
     }),
 
   toggleLike: (cardId, isLiked) => 
@@ -69,20 +61,4 @@ const cardAPI = {
     })
 };
 
-function isImage(url) {
-  return fetch(url, { method: 'HEAD' })
-    .then(res => {
-      if (res.ok) {
-        const contentType = res.headers.get('Content-Type');
-        return contentType && contentType.startsWith('image/');
-      }
-      
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch(err => {
-      console.error('Ошибка при проверке URL:', err);
-      return false;
-    });
-};
-
-export {userAPI, cardAPI};
+export { userAPI, cardAPI };
