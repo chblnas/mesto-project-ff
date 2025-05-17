@@ -120,7 +120,6 @@ function openImageModal(name, link) {
 
 function handleProfileAvatarClick() {
   openModal(updateAvatarModal);
-  clearValidation(addCardForm, validationConfig);
   clearValidation(updateAvatarForm, validationConfig);
 }
 
