@@ -28,7 +28,7 @@ function hideInputError(formElement, inputElement, validationConfig) {
   errorElement.textContent = '';
 }
 
-function isValid(formElement, inputElement) {
+function isValid(formElement, inputElement, validationConfig) {
   inputElement.validity.patternMismatch ?
     inputElement.setCustomValidity(inputElement.dataset.errorMessage) :
     inputElement.setCustomValidity('');
@@ -46,7 +46,7 @@ function setEventListeners(formElement, validationConfig) {
 
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
+      isValid(formElement, inputElement, validationConfig);
       toggleButtonState(inputList, buttonElement, validationConfig);
     });
   });
@@ -66,7 +66,7 @@ function clearValidation(formElement, validationConfig) {
 
   toggleButtonState(inputList, buttonElement, validationConfig);
 
-  inputList.forEach(inputElement => hideInputError(formElement, inputElement));
+  inputList.forEach(inputElement => hideInputError(formElement, inputElement, validationConfig));
 }
 
 export { enableValidation, clearValidation };
