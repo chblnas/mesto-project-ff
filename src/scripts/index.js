@@ -118,12 +118,23 @@ function openImageModal(name, link) {
   openModal(imageModal);
 }
 
+function handleProfileAvatarClick() {
+  openModal(updateAvatarModal);
+  clearValidation(addCardForm, validationConfig);
+  clearValidation(updateAvatarForm, validationConfig);
+}
+
 function handleEditProfileButtonClick() {
   profileNameInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
 
   openModal(editProfileModal);
   clearValidation(editProfileForm, validationConfig);
+}
+
+function handleAddCardButtonClick() {
+  openModal(addCardModal);
+  clearValidation(addCardForm, validationConfig);
 }
 
 function handleEditProfileFormSubmit(evt) {
@@ -162,7 +173,6 @@ function handleAddCardFormSubmit(evt) {
 
       closeModal(addCardModal);
       addCardForm.reset();
-      clearValidation(addCardForm, validationConfig);
     })
     .catch(console.error)
     .finally(() => {
@@ -181,7 +191,6 @@ function handleUpdateAvatarFormSubmit(evt) {
 
       closeModal(updateAvatarModal);
       updateAvatarForm.reset();
-      clearValidation(updateAvatarForm, validationConfig);
     })
     .catch(err => console.error('Ошибка добавления аватара:', err))
     .finally(() => {
@@ -189,9 +198,9 @@ function handleUpdateAvatarFormSubmit(evt) {
     });
 }
 
-profileAvatar.addEventListener('click', () => openModal(updateAvatarModal))
+profileAvatar.addEventListener('click', handleProfileAvatarClick);
 editProfileButton.addEventListener('click', handleEditProfileButtonClick);
-addCardButton.addEventListener('click', () => openModal(addCardModal));
+addCardButton.addEventListener('click', handleAddCardButtonClick);
 
 editProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);

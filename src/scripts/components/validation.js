@@ -12,19 +12,19 @@ function toggleButtonState(inputList, buttonElement, validationConfig) {
   }
 }
 
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, validationConfig) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputElement.classList.add('popup__input_type_error');
-  errorElement.classList.add('popup-error-visible');
+  inputElement.classList.add(validationConfig.inputErrorClass);
+  errorElement.classList.add(validationConfig.errorClass);
   errorElement.textContent = errorMessage;
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, validationConfig) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup-error-visible');
+  inputElement.classList.remove(validationConfig.inputErrorClass);
+  errorElement.classList.remove(validationConfig.errorClass);
   errorElement.textContent = '';
 }
 
@@ -34,8 +34,8 @@ function isValid(formElement, inputElement) {
     inputElement.setCustomValidity('');
 
   inputElement.validity.valid ? 
-    hideInputError(formElement, inputElement) : 
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    hideInputError(formElement, inputElement, validationConfig) : 
+    showInputError(formElement, inputElement, inputElement.validationMessage, validationConfig);
 }
 
 function setEventListeners(formElement, validationConfig) {
